@@ -12,5 +12,5 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public void handleConflict() {
     }
-    
+
 }
