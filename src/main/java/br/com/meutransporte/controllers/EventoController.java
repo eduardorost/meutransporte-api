@@ -19,7 +19,7 @@ public class EventoController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    @Secured("ROLE_USER")
+//    @Secured("ROLE_USER")
     public ResponseEntity<List<Evento>> getAll() {
         return ResponseEntity.ok(eventoService.getAll());
     }
@@ -47,7 +47,7 @@ public class EventoController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
     public ResponseEntity delete(@PathVariable Long id) {
         eventoService.delete(id);
 

@@ -21,6 +21,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+        //TODO: Utilizar JDBC
         auth.inMemoryAuthentication()
                 .withUser("user").password("user").authorities("ROLE_USER")
                 .and()
