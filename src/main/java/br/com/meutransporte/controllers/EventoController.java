@@ -4,13 +4,14 @@ import br.com.meutransporte.models.Evento;
 import br.com.meutransporte.services.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/v1/eventos")
+@RequestMapping("/v1/api/eventos")
 public class EventoController {
 
     @Autowired
@@ -18,6 +19,7 @@ public class EventoController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
+    @Secured("ROLE_USER")
     public ResponseEntity<List<Evento>> getAll() {
         return ResponseEntity.ok(eventoService.getAll());
     }
@@ -45,6 +47,7 @@ public class EventoController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
+    @Secured("ROLE_ADMIN")
     public ResponseEntity delete(@PathVariable Long id) {
         eventoService.delete(id);
 

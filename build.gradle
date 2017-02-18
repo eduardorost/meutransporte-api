@@ -29,6 +29,8 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.session:spring-session")
 	compile('mysql:mysql-connector-java:6.0.5')
 	compile('org.modelmapper:modelmapper:0.7.5')
 
