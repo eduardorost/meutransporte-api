@@ -2,9 +2,10 @@ package br.com.meutransporte.models;
 
 public class Evento {
     private Long id;
-
     private String nome, descricao, informacoesContato;
-    private int tipo;
+    private Integer tipo;
+    private Endereco endereco;
+    private Cidade cidade;
 
     public Long getId() {
         return id;
@@ -38,11 +39,27 @@ public class Evento {
         this.informacoesContato = informacoesContato;
     }
 
-    public int getTipo() {
+    public Integer getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(Integer tipo) {
         this.tipo = tipo;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 }

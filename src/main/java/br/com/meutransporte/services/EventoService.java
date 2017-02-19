@@ -1,7 +1,9 @@
 package br.com.meutransporte.services;
 
+import br.com.meutransporte.entities.EnderecoEntity;
 import br.com.meutransporte.entities.EventoEntity;
 import br.com.meutransporte.models.Evento;
+import br.com.meutransporte.repositories.EnderecoRepository;
 import br.com.meutransporte.repositories.EventoRepository;
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.modelmapper.ModelMapper;
@@ -18,10 +20,13 @@ public class EventoService {
     @Autowired
     private EventoRepository eventoRepository;
     @Autowired
+    private EnderecoRepository enderecoRepository;
+    @Autowired
     private ModelMapper modelMapper;
 
     public List<Evento> getAll() {
-        Type listType = new TypeToken<List<Evento>>() {}.getType();
+        Type listType = new TypeToken<List<Evento>>() {
+        }.getType();
         return modelMapper.map(eventoRepository.findAll(), listType);
     }
 
@@ -39,13 +44,15 @@ public class EventoService {
     }
 
     private Evento save(Evento evento) {
-        EventoEntity eventoEntity = eventoRepository.save(modelMapper.map(evento, EventoEntity.class));
+        EventoEntity eventoEntity = modelMapper.map(evento, EventoEntity.class);
+        eventoEntity.setEndereco(enderecoRepository.save(modelMapper.map(evento.getEndereco(), EnderecoEntity.class)));
+        eventoEntity = eventoRepository.save(eventoEntity);
         return modelMapper.map(eventoEntity, Evento.class);
     }
 
     public void delete(Long id) {
         EventoEntity eventoEntity = eventoRepository.findOne(id);
-        if(eventoEntity == null)
+        if (eventoEntity == null)
             throw new IllegalArgumentException();
 
         eventoRepository.delete(eventoEntity);

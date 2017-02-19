@@ -1,16 +1,23 @@
 package br.com.meutransporte.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity(name="evento")
+@Entity(name = "evento")
 public class EventoEntity {
-     @Id @GeneratedValue
-     private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-     private String nome, descricao, informacoesContato;
-     private int tipo;
+    private String nome, descricao, informacoesContato;
+    private Integer tipo;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id")
+    private EnderecoEntity endereco;
+
+    @ManyToOne
+    @JoinColumn(name = "cidade_id", updatable = false, insertable = false)
+    private CidadeEntity cidade;
 
     public Long getId() {
         return id;
@@ -44,11 +51,27 @@ public class EventoEntity {
         this.informacoesContato = informacoesContato;
     }
 
-    public int getTipo() {
+    public Integer getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(Integer tipo) {
         this.tipo = tipo;
+    }
+
+    public CidadeEntity getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(CidadeEntity cidade) {
+        this.cidade = cidade;
+    }
+
+    public EnderecoEntity getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoEntity endereco) {
+        this.endereco = endereco;
     }
 }
