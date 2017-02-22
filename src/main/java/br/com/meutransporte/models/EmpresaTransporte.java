@@ -5,7 +5,6 @@ import java.util.List;
 public class EmpresaTransporte {
     private Long id;
     private String razaoSocial, email;
-    //TODO: VALIDAR CNPJ
     private Long cnpj, telefone;
     private Integer status;
     private List<Veiculo> veiculos;
