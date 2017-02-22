@@ -3,6 +3,7 @@ package br.com.meutransporte.services;
 import br.com.meutransporte.entities.EmpresaTransporteEntity;
 import br.com.meutransporte.models.EmpresaTransporte;
 import br.com.meutransporte.repositories.EmpresaTransporteRepository;
+import br.com.meutransporte.repositories.VeiculoRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class EmpresaTransporteService {
 
     @Autowired
     private EmpresaTransporteRepository empresaTransporteRepository;
+    @Autowired
+    private VeiculoRepository veiculoRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -38,8 +41,10 @@ public class EmpresaTransporteService {
     }
 
     private EmpresaTransporte save(EmpresaTransporte empresaTransporte) {
-        EmpresaTransporteEntity eventoEntity = empresaTransporteRepository.save(modelMapper.map(empresaTransporte, EmpresaTransporteEntity.class));
-        return modelMapper.map(eventoEntity, EmpresaTransporte.class);
+        empresaTransporte.getVeiculos().forEach(veiculo -> veiculo.setEmpresaTransporte(empresaTransporte));
+        EmpresaTransporteEntity empresaTransporteEntity = empresaTransporteRepository.save(modelMapper.map(empresaTransporte, EmpresaTransporteEntity.class));
+
+        return modelMapper.map(empresaTransporteEntity, EmpresaTransporte.class);
     }
 
     public void delete(Long id) {

@@ -1,10 +1,14 @@
 package br.com.meutransporte.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Veiculo {
     private Long id;
 
     private String modelo, placa;
     private int capacidade;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private EmpresaTransporte empresaTransporte;
 
     public Long getId() {

@@ -46,4 +46,12 @@ public class VeiculoEntity {
     public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;
     }
+
+    public EmpresaTransporteEntity getEmpresaTransporte() {
+        return empresaTransporte;
+    }
+
+    public void setEmpresaTransporte(EmpresaTransporteEntity empresaTransporte) {
+        this.empresaTransporte = empresaTransporte;
+    }
 }

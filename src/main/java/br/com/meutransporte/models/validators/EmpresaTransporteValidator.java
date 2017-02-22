@@ -4,7 +4,6 @@ import br.com.meutransporte.models.EmpresaTransporte;
 import br.com.meutransporte.utils.DocumentoUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
@@ -19,7 +18,7 @@ public class EmpresaTransporteValidator implements Validator {
     public void validate(Object target, Errors errors) {
         EmpresaTransporte empresaTransporte = (EmpresaTransporte) target;
 
-        if(!DocumentoUtil.isValidCNPJ(empresaTransporte.getRazaoSocial()))
-            errors.rejectValue("razaoSocial", "razaoSocial.invalid");
+        if(!DocumentoUtil.isValidCNPJ(empresaTransporte.getCnpj().toString()))
+            errors.rejectValue("cnpj", "cnpj.invalid");
     }
 }

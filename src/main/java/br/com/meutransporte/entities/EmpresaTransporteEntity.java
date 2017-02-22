@@ -13,7 +13,6 @@ public class EmpresaTransporteEntity {
     private Long cnpj, telefone;
     private Integer status;
 
-    //TODO: CORRIGIR RELACIONAMENTO, NÃO ESTÁ SALVANDO ID NO FILHO
     @OneToMany(mappedBy = "empresaTransporte", cascade = CascadeType.ALL)
     private List<VeiculoEntity> veiculos;
 
