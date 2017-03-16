@@ -1,6 +1,5 @@
 package br.com.meutransporte.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,9 +26,6 @@ public class UsuarioEntity implements UserDetails {
     @NotEmpty
     private String senha;
 
-    //@Transient
-    //private String confirmaSenha;
-
     @NotEmpty
     private String email;
 
@@ -38,7 +34,6 @@ public class UsuarioEntity implements UserDetails {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date cadastro;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PapelEntity> papeis;
 

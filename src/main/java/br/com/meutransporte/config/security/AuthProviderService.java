@@ -1,7 +1,9 @@
 package br.com.meutransporte.config.security;
 
 import br.com.meutransporte.entities.UsuarioEntity;
+import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.repositories.UsuarioRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -34,7 +36,7 @@ public class AuthProviderService implements AuthenticationProvider {
         UsuarioEntity usuarioEntity = usuarioOptional.get();
         if (usuarioEntity.getStatus()) {
             Collection<? extends GrantedAuthority> authorities = usuarioEntity.getPapeis();
-            return new UsernamePasswordAuthenticationToken(login, senha, authorities);
+            return new  UsernamePasswordAuthenticationToken(new ModelMapper().map(usuarioEntity, Usuario.class), senha, authorities);
         } else {
             throw new BadCredentialsException("Usuário desativado.");
         }

@@ -12,30 +12,17 @@ public class PapelEntity implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    private Modulo nome;
+    @Column
+    private String modulo;
 
-    @ManyToOne
     @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
 
     @Override
     public String getAuthority() {
-        return nome.toString();
-    }
-
-    public enum Modulo {
-        EMPRESA("ROLE_EMPRESA"), USUARIO("ROLE_USUARIO"), ADMIN("ROLE_ADMIN");
-        private String modulo;
-
-        private Modulo(String modulo) {
-            this.modulo = modulo;
-        }
-
-        @Override
-        public String toString() {
-            return this.modulo;
-        }
+        return modulo;
     }
 
     public Integer getId() {
@@ -46,12 +33,12 @@ public class PapelEntity implements GrantedAuthority {
         this.id = id;
     }
 
-    public Modulo getNome() {
-        return nome;
+    public String getModulo() {
+        return modulo;
     }
 
-    public void setNome(Modulo nome) {
-        this.nome = nome;
+    public void setModulo(String modulo) {
+        this.modulo = modulo;
     }
 
     public UsuarioEntity getUsuario() {
