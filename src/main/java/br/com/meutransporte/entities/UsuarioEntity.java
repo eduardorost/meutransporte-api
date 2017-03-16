@@ -17,22 +17,26 @@ public class UsuarioEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
     private String nome;
 
-    @NotEmpty
     private String login;
 
-    @NotEmpty
     private String senha;
 
-    @NotEmpty
+    private String telefone;
+
     private String email;
 
     private Boolean status;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date cadastro;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private EmpresaEntity empresaEntity;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private PessoaEntity pessoaEntity;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PapelEntity> papeis;
@@ -134,5 +138,29 @@ public class UsuarioEntity implements UserDetails {
 
     public void setPapeis(List<PapelEntity> papeis) {
         this.papeis = papeis;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public PessoaEntity getPessoaEntity() {
+        return pessoaEntity;
+    }
+
+    public void setPessoaEntity(PessoaEntity pessoaEntity) {
+        this.pessoaEntity = pessoaEntity;
+    }
+
+    public EmpresaEntity getEmpresaEntity() {
+        return empresaEntity;
+    }
+
+    public void setEmpresaEntity(EmpresaEntity empresaEntity) {
+        this.empresaEntity = empresaEntity;
     }
 }

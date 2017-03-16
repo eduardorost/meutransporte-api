@@ -1,6 +1,5 @@
 package br.com.meutransporte.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -12,10 +11,8 @@ public class PapelEntity implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
     private String modulo;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;

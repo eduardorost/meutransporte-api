@@ -10,9 +10,12 @@ public class Usuario {
     private String login;
     private String senha;
     private String email;
+    private String telefone;
     private Boolean status;
     private Date cadastro;
     private List<Papel> papeis;
+    private Pessoa pessoa;
+    private Empresa empresa;
 
     public Integer getId() {
         return id;
@@ -76,5 +79,29 @@ public class Usuario {
 
     public void setPapeis(List<Papel> papeis) {
         this.papeis = papeis;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 }

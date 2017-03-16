@@ -9,7 +9,7 @@ public class Veiculo {
     private int capacidade;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private EmpresaTransporte empresaTransporte;
+    private Empresa empresa;
 
     public Long getId() {
         return id;
@@ -43,11 +43,11 @@ public class Veiculo {
         this.capacidade = capacidade;
     }
 
-    public EmpresaTransporte getEmpresaTransporte() {
-        return empresaTransporte;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public void setEmpresaTransporte(EmpresaTransporte empresaTransporte) {
-        this.empresaTransporte = empresaTransporte;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 }

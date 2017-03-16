@@ -1,6 +1,6 @@
 package br.com.meutransporte.models.validators;
 
-import br.com.meutransporte.models.EmpresaTransporte;
+import br.com.meutransporte.models.Empresa;
 import br.com.meutransporte.utils.DocumentoUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,14 +11,14 @@ public class EmpresaTransporteValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return EmpresaTransporte.class.equals(clazz);
+        return Empresa.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        EmpresaTransporte empresaTransporte = (EmpresaTransporte) target;
+        Empresa empresa = (Empresa) target;
 
-        if(!DocumentoUtil.isValidCNPJ(empresaTransporte.getCnpj().toString()))
+        if(!DocumentoUtil.isValidCNPJ(empresa.getCnpj().toString()))
             errors.rejectValue("cnpj", "cnpj.invalid");
     }
 }

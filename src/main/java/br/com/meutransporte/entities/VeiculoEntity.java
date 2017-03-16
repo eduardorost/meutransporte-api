@@ -12,8 +12,8 @@ public class VeiculoEntity {
     private int capacidade;
 
     @ManyToOne
-    @JoinColumn(name = "empresa_transporte_id")
-    private EmpresaTransporteEntity empresaTransporte;
+    @JoinColumn(name = "empresa_id")
+    private EmpresaEntity empresa;
 
     public Long getId() {
         return id;
@@ -47,11 +47,11 @@ public class VeiculoEntity {
         this.capacidade = capacidade;
     }
 
-    public EmpresaTransporteEntity getEmpresaTransporte() {
-        return empresaTransporte;
+    public EmpresaEntity getEmpresa() {
+        return empresa;
     }
 
-    public void setEmpresaTransporte(EmpresaTransporteEntity empresaTransporte) {
-        this.empresaTransporte = empresaTransporte;
+    public void setEmpresa(EmpresaEntity empresa) {
+        this.empresa = empresa;
     }
 }
