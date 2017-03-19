@@ -6,7 +6,6 @@ import br.com.meutransporte.entities.PessoaEntity;
 import br.com.meutransporte.entities.UsuarioEntity;
 import br.com.meutransporte.enums.ModuloType;
 import br.com.meutransporte.models.Usuario;
-import br.com.meutransporte.repositories.EmpresaRepository;
 import br.com.meutransporte.repositories.PapelRepository;
 import br.com.meutransporte.repositories.PessoaRepository;
 import br.com.meutransporte.repositories.UsuarioRepository;
@@ -24,11 +23,11 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
-    private EmpresaRepository empresaRepository;
-    @Autowired
     private PessoaRepository pessoaRepository;
     @Autowired
     private PapelRepository papelRepository;
+    @Autowired
+    private EmpresaService empresaService;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -60,10 +59,7 @@ public class UsuarioService {
         usuarioEntity = usuarioRepository.save(usuarioEntity);
 
         if(usuario.getEmpresa() != null) {
-            EmpresaEntity empresaEntity = modelMapper.map(usuario.getEmpresa(), EmpresaEntity.class);
-            empresaEntity.setUsuario(usuarioEntity);
-
-            usuarioEntity.setEmpresa(empresaRepository.save(empresaEntity));
+            usuarioEntity.setEmpresa(empresaService.saveEntity(modelMapper.map(usuario.getEmpresa(), EmpresaEntity.class), usuarioEntity));
             usuarioEntity.setPapeis(new ArrayList<PapelEntity>() {{ add(new PapelEntity(ModuloType.EMPRESA.toString())); }});
         }
 
