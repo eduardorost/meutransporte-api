@@ -8,15 +8,14 @@ public class EventoEntity {
     @GeneratedValue
     private Long id;
 
-    private String nome, descricao, informacoesContato;
-    private Integer tipo;
+    private String nome, descricao, link, tipo;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     private EnderecoEntity endereco;
 
-    @ManyToOne
-    @JoinColumn(name = "cidade_id", updatable = false, insertable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cidade_id")
     private CidadeEntity cidade;
 
     public Long getId() {
@@ -43,19 +42,19 @@ public class EventoEntity {
         this.descricao = descricao;
     }
 
-    public String getInformacoesContato() {
-        return informacoesContato;
+    public String getLink() {
+        return link;
     }
 
-    public void setInformacoesContato(String informacoesContato) {
-        this.informacoesContato = informacoesContato;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public Integer getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

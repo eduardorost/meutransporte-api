@@ -2,8 +2,7 @@ package br.com.meutransporte.models;
 
 public class Evento {
     private Long id;
-    private String nome, descricao, informacoesContato;
-    private Integer tipo;
+    private String nome, descricao, link, tipo;
     private Endereco endereco;
     private Cidade cidade;
 
@@ -31,19 +30,19 @@ public class Evento {
         this.descricao = descricao;
     }
 
-    public String getInformacoesContato() {
-        return informacoesContato;
+    public String getLink() {
+        return link;
     }
 
-    public void setInformacoesContato(String informacoesContato) {
-        this.informacoesContato = informacoesContato;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public Integer getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

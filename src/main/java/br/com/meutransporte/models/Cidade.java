@@ -1,12 +1,9 @@
 package br.com.meutransporte.models;
 
-import java.util.Set;
-
 public class Cidade {
     private Long id;
     private String nome;
-    private Estado estado;
-    private Set<Evento> eventos;
+    private String uf;
 
     public Long getId() {
         return id;
@@ -24,19 +21,11 @@ public class Cidade {
         this.nome = nome;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public String getUf() {
+        return uf;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-
-    public Set<Evento> getEventos() {
-        return eventos;
-    }
-
-    public void setEventos(Set<Evento> eventos) {
-        this.eventos = eventos;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 }

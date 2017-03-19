@@ -15,7 +15,7 @@ public class CidadeEntity {
     @JoinColumn(name = "estado_id")
     private EstadoEntity estado;
 
-    @OneToMany(mappedBy = "cidade", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "cidade")
     private Set<EventoEntity> eventos;
 
     public Long getId() {
