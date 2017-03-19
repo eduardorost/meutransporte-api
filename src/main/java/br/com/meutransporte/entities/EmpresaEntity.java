@@ -17,6 +17,8 @@ public class EmpresaEntity {
 
     private String email;
 
+    private String recefitur;
+
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
@@ -78,5 +80,13 @@ public class EmpresaEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRecefitur() {
+        return recefitur;
+    }
+
+    public void setRecefitur(String recefitur) {
+        this.recefitur = recefitur;
     }
 }

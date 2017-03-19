@@ -8,6 +8,7 @@ public class Empresa {
     private String nome;
     private String telefone;
     private String email;
+    private String recefitur;
     private List<Veiculo> veiculos;
 
     public Long getId() {
@@ -56,5 +57,13 @@ public class Empresa {
 
     public void setVeiculos(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
+    }
+
+    public String getRecefitur() {
+        return recefitur;
+    }
+
+    public void setRecefitur(String recefitur) {
+        this.recefitur = recefitur;
     }
 }
