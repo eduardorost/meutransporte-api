@@ -17,6 +17,13 @@ public class PapelEntity implements GrantedAuthority {
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
 
+    public PapelEntity() {
+    }
+
+    public PapelEntity(String modulo) {
+        this.modulo = modulo;
+    }
+
     @Override
     public String getAuthority() {
         return modulo;

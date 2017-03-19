@@ -20,12 +20,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/v1/api/usuarios").permitAll()
-                .antMatchers(HttpMethod.GET, "/", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and().requestCache().requestCache(new NullRequestCache())
                 .and().httpBasic()
                 .and().csrf().disable();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers(HttpMethod.POST, "/v1/api/usuarios")
+                .antMatchers(HttpMethod.GET, "/", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html");
     }
 
     @Override

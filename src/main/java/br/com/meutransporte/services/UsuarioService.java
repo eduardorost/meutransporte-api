@@ -4,6 +4,7 @@ import br.com.meutransporte.entities.EmpresaEntity;
 import br.com.meutransporte.entities.PapelEntity;
 import br.com.meutransporte.entities.PessoaEntity;
 import br.com.meutransporte.entities.UsuarioEntity;
+import br.com.meutransporte.enums.ModuloType;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.repositories.EmpresaRepository;
 import br.com.meutransporte.repositories.PapelRepository;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -57,21 +59,25 @@ public class UsuarioService {
 
         usuarioEntity = usuarioRepository.save(usuarioEntity);
 
-        for (PapelEntity papelEntity: usuarioEntity.getPapeis()) {
-            papelEntity.setUsuario(usuarioEntity);
-            papelRepository.save(papelEntity);
-        }
-
         if(usuario.getEmpresa() != null) {
             EmpresaEntity empresaEntity = modelMapper.map(usuario.getEmpresa(), EmpresaEntity.class);
             empresaEntity.setUsuario(usuarioEntity);
+
             usuarioEntity.setEmpresa(empresaRepository.save(empresaEntity));
+            usuarioEntity.setPapeis(new ArrayList<PapelEntity>() {{ add(new PapelEntity(ModuloType.EMPRESA.toString())); }});
         }
 
         if(usuario.getPessoa() != null) {
             PessoaEntity pessoaEntity = modelMapper.map(usuario.getPessoa(), PessoaEntity.class);
             pessoaEntity.setUsuario(usuarioEntity);
+
             usuarioEntity.setPessoa(pessoaRepository.save(pessoaEntity));
+            usuarioEntity.setPapeis(new ArrayList<PapelEntity>() {{ add(new PapelEntity(ModuloType.USUARIO.toString())); }});
+        }
+
+        for (PapelEntity papelEntity: usuarioEntity.getPapeis()) {
+            papelEntity.setUsuario(usuarioEntity);
+            papelRepository.save(papelEntity);
         }
 
         return modelMapper.map(usuarioEntity, Usuario.class);

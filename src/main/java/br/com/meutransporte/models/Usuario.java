@@ -47,7 +47,7 @@ public class Usuario {
     }
 
     public Date getCadastro() {
-        return cadastro;
+        return cadastro != null ? cadastro : new Date();
     }
 
     public void setCadastro(Date cadastro) {
