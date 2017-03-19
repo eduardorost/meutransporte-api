@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-
 @RequestMapping("/v1/api/login")
 @RestController
 public class AuthController {
 
     @GetMapping
-    ResponseEntity<Usuario> login(@AuthenticationPrincipal UsernamePasswordAuthenticationToken user, HttpSession session) {
+    ResponseEntity<Usuario> login(@AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
         return ResponseEntity.ok((Usuario) user.getPrincipal());
     }
 }
