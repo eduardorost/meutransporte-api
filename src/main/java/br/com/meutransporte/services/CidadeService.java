@@ -39,8 +39,8 @@ public class CidadeService {
     }
 
     private Cidade save(Cidade cidade) {
-        CidadeEntity eventoEntity = cidadeRepository.save(modelMapper.map(cidade, CidadeEntity.class));
-        return modelMapper.map(eventoEntity, Cidade.class);
+        CidadeEntity cidadeEntity = cidadeRepository.save(modelMapper.map(cidade, CidadeEntity.class));
+        return modelMapper.map(cidadeEntity, Cidade.class);
     }
 
     public void delete(Long id) {

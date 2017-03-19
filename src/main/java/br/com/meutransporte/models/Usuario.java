@@ -6,11 +6,8 @@ import java.util.List;
 public class Usuario {
 
     private Integer id;
-    private String nome;
     private String login;
     private String senha;
-    private String email;
-    private String telefone;
     private Boolean status;
     private Date cadastro;
     private List<Papel> papeis;
@@ -23,14 +20,6 @@ public class Usuario {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getLogin() {
@@ -47,14 +36,6 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Boolean getStatus() {
@@ -79,14 +60,6 @@ public class Usuario {
 
     public void setPapeis(List<Papel> papeis) {
         this.papeis = papeis;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 
     public Pessoa getPessoa() {
