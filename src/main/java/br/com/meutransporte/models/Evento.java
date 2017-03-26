@@ -1,8 +1,11 @@
 package br.com.meutransporte.models;
 
+import java.util.Date;
+
 public class Evento {
     private Long id;
-    private String nome, descricao, link, tipo;
+    private String nome, descricao, link, foto, tipo;
+    private Date data;
     private Endereco endereco;
     private Cidade cidade;
 
@@ -60,5 +63,21 @@ public class Evento {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

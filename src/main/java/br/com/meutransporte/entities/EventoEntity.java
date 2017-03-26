@@ -1,6 +1,7 @@
 package br.com.meutransporte.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name = "evento")
 public class EventoEntity {
@@ -8,7 +9,8 @@ public class EventoEntity {
     @GeneratedValue
     private Long id;
 
-    private String nome, descricao, link, tipo;
+    private String nome, descricao, link, foto, tipo;
+    private Date data;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
@@ -72,5 +74,21 @@ public class EventoEntity {
 
     public void setEndereco(EnderecoEntity endereco) {
         this.endereco = endereco;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }
