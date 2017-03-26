@@ -8,7 +8,6 @@ import br.com.meutransporte.repositories.CidadeRepository;
 import br.com.meutransporte.repositories.EnderecoRepository;
 import br.com.meutransporte.repositories.EstadoRepository;
 import br.com.meutransporte.repositories.EventoRepository;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
