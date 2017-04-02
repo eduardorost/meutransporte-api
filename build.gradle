@@ -33,7 +33,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile("org.springframework.boot:spring-boot-starter-security")
 	compile("org.springframework.session:spring-session")
+
 	compile('mysql:mysql-connector-java:6.0.5')
+//	compile('com.h2database:h2:1.4.193')
 	compile('org.modelmapper:modelmapper:0.7.7')
 
 	compile('io.springfox:springfox-swagger2:2.6.1')
