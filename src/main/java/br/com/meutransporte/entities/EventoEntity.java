@@ -2,6 +2,7 @@ package br.com.meutransporte.entities;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "evento")
 public class EventoEntity {
@@ -23,6 +24,9 @@ public class EventoEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
+
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    private List<EventoTransporteEntity> eventoTransportes;
 
     public Long getId() {
         return id;
@@ -102,5 +106,13 @@ public class EventoEntity {
 
     public void setUsuario(UsuarioEntity usuario) {
         this.usuario = usuario;
+    }
+
+    public List<EventoTransporteEntity> getEventoTransportes() {
+        return eventoTransportes;
+    }
+
+    public void setEventoTransportes(List<EventoTransporteEntity> eventoTransportes) {
+        this.eventoTransportes = eventoTransportes;
     }
 }

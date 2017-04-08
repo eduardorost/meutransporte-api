@@ -26,6 +26,9 @@ public class EmpresaEntity {
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
     private List<VeiculoEntity> veiculos;
 
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
+    private List<EventoTransporteEntity> eventoTransportes;
+
     public Long getId() {
         return id;
     }
@@ -88,5 +91,13 @@ public class EmpresaEntity {
 
     public void setRecefitur(String recefitur) {
         this.recefitur = recefitur;
+    }
+
+    public List<EventoTransporteEntity> getEventoTransportes() {
+        return eventoTransportes;
+    }
+
+    public void setEventoTransportes(List<EventoTransporteEntity> eventoTransportes) {
+        this.eventoTransportes = eventoTransportes;
     }
 }

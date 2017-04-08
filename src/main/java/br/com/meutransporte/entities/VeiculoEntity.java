@@ -1,6 +1,7 @@
 package br.com.meutransporte.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "veiculo")
 public class VeiculoEntity {
@@ -14,6 +15,9 @@ public class VeiculoEntity {
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private EmpresaEntity empresa;
+
+    @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
+    private List<EventoTransporteEntity> eventoTransportes;
 
     public Long getId() {
         return id;
@@ -53,5 +57,13 @@ public class VeiculoEntity {
 
     public void setEmpresa(EmpresaEntity empresa) {
         this.empresa = empresa;
+    }
+
+    public List<EventoTransporteEntity> getEventoTransportes() {
+        return eventoTransportes;
+    }
+
+    public void setEventoTransportes(List<EventoTransporteEntity> eventoTransportes) {
+        this.eventoTransportes = eventoTransportes;
     }
 }

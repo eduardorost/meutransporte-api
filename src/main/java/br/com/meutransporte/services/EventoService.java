@@ -3,7 +3,6 @@ package br.com.meutransporte.services;
 import br.com.meutransporte.entities.CidadeEntity;
 import br.com.meutransporte.entities.EnderecoEntity;
 import br.com.meutransporte.entities.EventoEntity;
-import br.com.meutransporte.entities.UsuarioEntity;
 import br.com.meutransporte.models.Evento;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.repositories.*;
