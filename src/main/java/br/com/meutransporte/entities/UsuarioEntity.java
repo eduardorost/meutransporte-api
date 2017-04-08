@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "usuario")
 public class UsuarioEntity implements UserDetails {
@@ -33,6 +34,9 @@ public class UsuarioEntity implements UserDetails {
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PapelEntity> papeis;
+
+    @OneToMany(mappedBy = "usuario")
+    private Set<EventoEntity> eventos;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -131,5 +135,13 @@ public class UsuarioEntity implements UserDetails {
 
     public void setEmpresa(EmpresaEntity empresa) {
         this.empresa = empresa;
+    }
+
+    public Set<EventoEntity> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(Set<EventoEntity> eventos) {
+        this.eventos = eventos;
     }
 }

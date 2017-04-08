@@ -3,11 +3,10 @@ package br.com.meutransporte.services;
 import br.com.meutransporte.entities.CidadeEntity;
 import br.com.meutransporte.entities.EnderecoEntity;
 import br.com.meutransporte.entities.EventoEntity;
+import br.com.meutransporte.entities.UsuarioEntity;
 import br.com.meutransporte.models.Evento;
-import br.com.meutransporte.repositories.CidadeRepository;
-import br.com.meutransporte.repositories.EnderecoRepository;
-import br.com.meutransporte.repositories.EstadoRepository;
-import br.com.meutransporte.repositories.EventoRepository;
+import br.com.meutransporte.models.Usuario;
+import br.com.meutransporte.repositories.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,8 @@ public class EventoService {
     @Autowired
     private EstadoRepository estadoRepository;
     @Autowired
+    private UsuarioRepository usuarioRepository;
+    @Autowired
     private ModelMapper modelMapper;
 
     public List<Evento> getAll() {
@@ -41,16 +42,16 @@ public class EventoService {
         return modelMapper.map(eventoRepository.findOne(id), Evento.class);
     }
 
-    public Evento insert(Evento evento) {
+    public Evento insert(Evento evento, Usuario usuario) {
         evento.setId(null);
-        return save(evento);
+        return save(evento, usuario);
     }
 
     public Evento update(Evento evento) {
-        return save(evento);
+        return save(evento, null);
     }
 
-    private Evento save(Evento evento) {
+    private Evento save(Evento evento, Usuario usuario) {
         EventoEntity eventoEntity = modelMapper.map(evento, EventoEntity.class);
 
         Optional<CidadeEntity> cidadeOptional = cidadeRepository.findFirstByNome(evento.getCidade().getNome());
@@ -63,6 +64,9 @@ public class EventoService {
             cidadeEntity.setEstado(estadoRepository.findFirstByUf(evento.getCidade().getUf()));
             cidadeEntity = cidadeRepository.save(cidadeEntity);
         }
+
+        if(usuario != null)
+            eventoEntity.setUsuario(usuarioRepository.findOne(usuario.getId()));
 
         eventoEntity.setEndereco(enderecoRepository.save(modelMapper.map(evento.getEndereco(), EnderecoEntity.class)));
         eventoEntity.setCidade(cidadeEntity);

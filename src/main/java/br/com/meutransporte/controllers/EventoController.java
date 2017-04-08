@@ -1,10 +1,13 @@
 package br.com.meutransporte.controllers;
 
 import br.com.meutransporte.models.Evento;
+import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.services.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +35,8 @@ public class EventoController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Evento> insert(@RequestBody Evento evento) {
-        return ResponseEntity.ok(eventoService.insert(evento));
+    public ResponseEntity<Evento> insert(@RequestBody Evento evento, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
+        return ResponseEntity.ok(eventoService.insert(evento, (Usuario) user.getPrincipal()));
     }
 
     @RequestMapping(method = RequestMethod.PUT)

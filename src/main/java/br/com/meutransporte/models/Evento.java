@@ -8,6 +8,7 @@ public class Evento {
     private Date data;
     private Endereco endereco;
     private Cidade cidade;
+    private Usuario usuario;
 
     public Long getId() {
         return id;
@@ -79,5 +80,13 @@ public class Evento {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

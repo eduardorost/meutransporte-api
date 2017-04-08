@@ -20,6 +20,10 @@ public class EventoEntity {
     @JoinColumn(name = "cidade_id")
     private CidadeEntity cidade;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuario;
+
     public Long getId() {
         return id;
     }
@@ -90,5 +94,13 @@ public class EventoEntity {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
     }
 }
