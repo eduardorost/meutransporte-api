@@ -12,7 +12,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").exposedHeaders("X-Auth-Token");
+        registry.addMapping("/**").allowedMethods("GET","POST","PUT","DELETE").exposedHeaders("X-Auth-Token");
     }
 
     @Override

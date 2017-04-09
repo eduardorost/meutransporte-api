@@ -23,7 +23,7 @@ public class EmpresaEntity {
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<VeiculoEntity> veiculos;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)

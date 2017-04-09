@@ -21,11 +21,11 @@ public class EventoEntity {
     @JoinColumn(name = "cidade_id")
     private CidadeEntity cidade;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
 
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "evento")
     private List<EventoTransporteEntity> eventoTransportes;
 
     public Long getId() {

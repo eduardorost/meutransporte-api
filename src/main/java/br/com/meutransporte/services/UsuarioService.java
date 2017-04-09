@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -60,7 +60,7 @@ public class UsuarioService {
 
         if(usuario.getEmpresa() != null) {
             usuarioEntity.setEmpresa(empresaService.saveEntity(modelMapper.map(usuario.getEmpresa(), EmpresaEntity.class), usuarioEntity));
-            usuarioEntity.setPapeis(new ArrayList<PapelEntity>() {{ add(new PapelEntity(ModuloType.EMPRESA.toString())); }});
+            usuarioEntity.setPapeis(new HashSet<PapelEntity>() {{ add(new PapelEntity(ModuloType.EMPRESA.toString())); }});
         }
 
         if(usuario.getPessoa() != null) {
@@ -68,7 +68,7 @@ public class UsuarioService {
             pessoaEntity.setUsuario(usuarioEntity);
 
             usuarioEntity.setPessoa(pessoaRepository.save(pessoaEntity));
-            usuarioEntity.setPapeis(new ArrayList<PapelEntity>() {{ add(new PapelEntity(ModuloType.USUARIO.toString())); }});
+            usuarioEntity.setPapeis(new HashSet<PapelEntity>() {{ add(new PapelEntity(ModuloType.USUARIO.toString())); }});
         }
 
         for (PapelEntity papelEntity: usuarioEntity.getPapeis()) {

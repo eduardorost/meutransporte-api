@@ -10,20 +10,21 @@ public class EventoTransporteEntity {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "evento_id")
     private EventoEntity evento;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "empresa_id")
     private EmpresaEntity empresa;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "veiculo_id")
     private VeiculoEntity veiculo;
 
-    @OneToMany(mappedBy = "eventoTransporte", cascade = CascadeType.ALL)
-    private List<EventoTransportePessoaEntity> pessoas;
+    @ManyToMany
+    @JoinTable(name = "evento_transporte_pessoa", joinColumns = @JoinColumn(name = "evento_transporte_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"))
+    private List<PessoaEntity> pessoas;
 
     public Long getId() {
         return id;
@@ -57,11 +58,11 @@ public class EventoTransporteEntity {
         this.veiculo = veiculo;
     }
 
-    public List<EventoTransportePessoaEntity> getPessoas() {
+    public List<PessoaEntity> getPessoas() {
         return pessoas;
     }
 
-    public void setPessoas(List<EventoTransportePessoaEntity> pessoas) {
+    public void setPessoas(List<PessoaEntity> pessoas) {
         this.pessoas = pessoas;
     }
 }

@@ -33,7 +33,7 @@ public class UsuarioEntity implements UserDetails {
     private PessoaEntity pessoa;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<PapelEntity> papeis;
+    private Set<PapelEntity> papeis;
 
     @OneToMany(mappedBy = "usuario")
     private Set<EventoEntity> eventos;
@@ -113,11 +113,11 @@ public class UsuarioEntity implements UserDetails {
         this.cadastro = cadastro;
     }
 
-    public List<PapelEntity> getPapeis() {
+    public Set<PapelEntity> getPapeis() {
         return papeis;
     }
 
-    public void setPapeis(List<PapelEntity> papeis) {
+    public void setPapeis(Set<PapelEntity> papeis) {
         this.papeis = papeis;
     }
 

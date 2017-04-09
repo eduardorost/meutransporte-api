@@ -1,6 +1,9 @@
 package br.com.meutransporte.entities;
 
+import br.com.meutransporte.models.EventoTransporte;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "pessoa")
 public class PessoaEntity {
@@ -19,6 +22,9 @@ public class PessoaEntity {
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
+
+    @ManyToMany(mappedBy = "pessoas")
+    private List<EventoTransporteEntity> eventoTransporte;
 
     public Long getId() {
         return id;
@@ -66,5 +72,13 @@ public class PessoaEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<EventoTransporteEntity> getEventoTransporte() {
+        return eventoTransporte;
+    }
+
+    public void setEventoTransporte(List<EventoTransporteEntity> eventoTransporte) {
+        this.eventoTransporte = eventoTransporte;
     }
 }
