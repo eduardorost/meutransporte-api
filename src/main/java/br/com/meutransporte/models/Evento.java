@@ -1,6 +1,7 @@
 package br.com.meutransporte.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class Evento {
     private Long id;
@@ -9,6 +10,7 @@ public class Evento {
     private Endereco endereco;
     private Cidade cidade;
     private Usuario usuario;
+    private List<EventoTransporte> transportes;
 
     public Long getId() {
         return id;
@@ -88,5 +90,13 @@ public class Evento {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public List<EventoTransporte> getTransportes() {
+        return transportes;
+    }
+
+    public void setTransportes(List<EventoTransporte> transportes) {
+        this.transportes = transportes;
     }
 }

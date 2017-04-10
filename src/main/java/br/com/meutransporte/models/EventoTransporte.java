@@ -5,11 +5,9 @@ import java.util.List;
 public class EventoTransporte {
     private Long id;
 
-    private Evento evento;
     private Empresa empresa;
     private Veiculo veiculo;
-
-    private List<EventoTransportePessoa> pessoas;
+    private List<Pessoa> pessoas;
 
     public Long getId() {
         return id;
@@ -17,14 +15,6 @@ public class EventoTransporte {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     public Empresa getEmpresa() {
@@ -43,11 +33,12 @@ public class EventoTransporte {
         this.veiculo = veiculo;
     }
 
-    public List<EventoTransportePessoa> getPessoas() {
+    public List<Pessoa> getPessoas() {
         return pessoas;
     }
 
-    public void setPessoas(List<EventoTransportePessoa> pessoas) {
+    public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
+
 }

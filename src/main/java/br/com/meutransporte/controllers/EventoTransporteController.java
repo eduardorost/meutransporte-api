@@ -9,13 +9,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/v1/api/evento/transportes")
+@RequestMapping("/v1/api/eventos/{eventoId}/transportes")
 public class EventoTransporteController {
 
     @Autowired
@@ -24,8 +21,8 @@ public class EventoTransporteController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     @Secured("ROLE_EMPRESA")
-    public ResponseEntity<EventoTransporte> insert(@RequestBody EventoTransporte eventoTransporte, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
-        return ResponseEntity.ok(eventoTransporteService.insert(eventoTransporte, (Usuario) user.getPrincipal()));
+    public ResponseEntity<EventoTransporte> insert(@PathVariable Long eventoId, @RequestBody EventoTransporte eventoTransporte, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
+        return ResponseEntity.ok(eventoTransporteService.insert(eventoTransporte, eventoId, (Usuario) user.getPrincipal()));
     }
 
 }
