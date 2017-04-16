@@ -7,6 +7,7 @@ public class EventoTransporte {
 
     private Empresa empresa;
     private Veiculo veiculo;
+    private boolean vinculoUsuarioLogado;
     private List<Pessoa> pessoas;
 
     public Long getId() {
@@ -41,4 +42,11 @@ public class EventoTransporte {
         this.pessoas = pessoas;
     }
 
+    public boolean isVinculoUsuarioLogado() {
+        return vinculoUsuarioLogado;
+    }
+
+    public void setVinculoUsuarioLogado(boolean vinculoUsuarioLogado) {
+        this.vinculoUsuarioLogado = vinculoUsuarioLogado;
+    }
 }

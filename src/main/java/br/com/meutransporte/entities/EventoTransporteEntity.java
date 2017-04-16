@@ -1,6 +1,7 @@
 package br.com.meutransporte.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class EventoTransporteEntity {
 
     @ManyToMany
     @JoinTable(name = "evento_transporte_pessoa", joinColumns = @JoinColumn(name = "evento_transporte_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"))
-    private List<PessoaEntity> pessoas;
+    private List<PessoaEntity> pessoas = new ArrayList<>();
 
     public Long getId() {
         return id;

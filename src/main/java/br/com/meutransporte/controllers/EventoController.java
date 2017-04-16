@@ -1,8 +1,10 @@
 package br.com.meutransporte.controllers;
 
 import br.com.meutransporte.models.Evento;
+import br.com.meutransporte.models.EventoTransporte;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.services.EventoService;
+import br.com.meutransporte.services.EventoTransporteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -19,33 +21,48 @@ public class EventoController {
 
     @Autowired
     private EventoService eventoService;
+    @Autowired
+    private EventoTransporteService eventoTransporteService;
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-//    @Secured("ROLE_USER")
-    public ResponseEntity<List<Evento>> getAll() {
-        return ResponseEntity.ok(eventoService.getAll());
+    public ResponseEntity<List<Evento>> getAll(@AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
+        List<Evento> eventos = eventoService.getAll();
+        eventos.forEach(evento ->
+            evento.getTransportes().forEach(eventoTransporte -> eventoTransporte.setVinculoUsuarioLogado(eventoTransporteService.userRegisteredEvento(eventoTransporte, (Usuario) user.getPrincipal())))
+        );
+
+        return ResponseEntity.ok(eventos);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Evento> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(eventoService.getById(id));
+    public ResponseEntity<Evento> getById(@PathVariable Long id, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
+        Evento evento = eventoService.getById(id);
+        evento.getTransportes().forEach(eventoTransporte -> eventoTransporte.setVinculoUsuarioLogado(eventoTransporteService.userRegisteredEvento(eventoTransporte, (Usuario) user.getPrincipal())));
+
+        return ResponseEntity.ok(evento);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Evento> insert(@RequestBody Evento evento, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
-        return ResponseEntity.ok(eventoService.insert(evento, (Usuario) user.getPrincipal()));
+        Usuario usuario = (Usuario) user.getPrincipal();
+        evento = eventoService.insert(evento, usuario);
+        evento.getTransportes().forEach(eventoTransporte -> eventoTransporte.setVinculoUsuarioLogado(eventoTransporteService.userRegisteredEvento(eventoTransporte, usuario)));
+        return ResponseEntity.ok(evento);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<Evento> update(@RequestBody Evento evento) {
+    public ResponseEntity<Evento> update(@RequestBody Evento evento, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
         if (evento.getId() == null)
             return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(eventoService.update(evento));
+        evento = eventoService.update(evento);
+        evento.getTransportes().forEach(eventoTransporte -> eventoTransporte.setVinculoUsuarioLogado(eventoTransporteService.userRegisteredEvento(eventoTransporte, (Usuario) user.getPrincipal())));
+
+        return ResponseEntity.ok(evento);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
