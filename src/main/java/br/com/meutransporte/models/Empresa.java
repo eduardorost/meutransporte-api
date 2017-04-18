@@ -1,6 +1,9 @@
 package br.com.meutransporte.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
+import java.util.Set;
 
 public class Empresa {
     private Long id;
@@ -10,6 +13,21 @@ public class Empresa {
     private String email;
     private String recefitur;
     private List<Veiculo> veiculos;
+    private Set<EventoTransporte> eventoTransportes;
+
+    public Empresa() {
+    }
+
+    public Empresa(Long id, Long cnpj, String nome, String telefone, String email, String recefitur, List<Veiculo> veiculos, Set<EventoTransporte> eventoTransportes) {
+        this.id = id;
+        this.cnpj = cnpj;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.recefitur = recefitur;
+        this.veiculos = veiculos;
+        this.eventoTransportes = eventoTransportes;
+    }
 
     public Long getId() {
         return id;
@@ -65,5 +83,13 @@ public class Empresa {
 
     public void setRecefitur(String recefitur) {
         this.recefitur = recefitur;
+    }
+
+    public Set<EventoTransporte> getEventoTransportes() {
+        return eventoTransportes;
+    }
+
+    public void setEventoTransportes(Set<EventoTransporte> eventoTransportes) {
+        this.eventoTransportes = eventoTransportes;
     }
 }

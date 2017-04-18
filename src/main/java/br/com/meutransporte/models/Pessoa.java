@@ -1,11 +1,26 @@
 package br.com.meutransporte.models;
 
+import java.util.Set;
+
 public class Pessoa {
     private Long id;
     private Long cpf;
     private String nome;
     private String telefone;
     private String email;
+    private Set<EventoTransporte> eventoTransportes;
+
+    public Pessoa() {
+    }
+
+    public Pessoa(Long id, Long cpf, String nome, String telefone, String email, Set<EventoTransporte> eventoTransportes) {
+        this.id = id;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.eventoTransportes = eventoTransportes;
+    }
 
     public Long getId() {
         return id;
@@ -45,5 +60,13 @@ public class Pessoa {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<EventoTransporte> getEventoTransportes() {
+        return eventoTransportes;
+    }
+
+    public void setEventoTransportes(Set<EventoTransporte> eventoTransportes) {
+        this.eventoTransportes = eventoTransportes;
     }
 }

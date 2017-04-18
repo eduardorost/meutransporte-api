@@ -2,6 +2,7 @@ package br.com.meutransporte.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class Usuario {
 
@@ -11,8 +12,24 @@ public class Usuario {
     private Boolean status;
     private Date cadastro;
     private List<Papel> papeis;
+    private Set<Evento> eventos;
     private Pessoa pessoa;
     private Empresa empresa;
+
+    public Usuario() {
+    }
+
+    public Usuario(Long id, String login, String senha, Boolean status, Date cadastro, List<Papel> papeis, Set<Evento> eventos, Pessoa pessoa, Empresa empresa) {
+        this.id = id;
+        this.login = login;
+        this.senha = senha;
+        this.status = status;
+        this.cadastro = cadastro;
+        this.papeis = papeis;
+        this.eventos = eventos;
+        this.pessoa = pessoa;
+        this.empresa = empresa;
+    }
 
     public Long getId() {
         return id;
@@ -76,5 +93,13 @@ public class Usuario {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+    public Set<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(Set<Evento> eventos) {
+        this.eventos = eventos;
     }
 }

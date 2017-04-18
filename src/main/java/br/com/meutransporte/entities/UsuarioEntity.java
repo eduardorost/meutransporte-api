@@ -35,7 +35,7 @@ public class UsuarioEntity implements UserDetails {
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PapelEntity> papeis;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     private Set<EventoEntity> eventos;
 
     @Override

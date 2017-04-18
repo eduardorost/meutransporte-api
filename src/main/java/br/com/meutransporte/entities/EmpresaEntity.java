@@ -2,6 +2,7 @@ package br.com.meutransporte.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "empresa")
 public class EmpresaEntity {
@@ -26,8 +27,8 @@ public class EmpresaEntity {
     @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<VeiculoEntity> veiculos;
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
-    private List<EventoTransporteEntity> eventoTransportes;
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<EventoTransporteEntity> eventoTransportes;
 
     public Long getId() {
         return id;
@@ -93,11 +94,11 @@ public class EmpresaEntity {
         this.recefitur = recefitur;
     }
 
-    public List<EventoTransporteEntity> getEventoTransportes() {
+    public Set<EventoTransporteEntity> getEventoTransportes() {
         return eventoTransportes;
     }
 
-    public void setEventoTransportes(List<EventoTransporteEntity> eventoTransportes) {
+    public void setEventoTransportes(Set<EventoTransporteEntity> eventoTransportes) {
         this.eventoTransportes = eventoTransportes;
     }
 }

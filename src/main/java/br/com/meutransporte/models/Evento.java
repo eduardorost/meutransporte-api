@@ -2,6 +2,7 @@ package br.com.meutransporte.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class Evento {
     private Long id;
@@ -10,7 +11,23 @@ public class Evento {
     private Endereco endereco;
     private Cidade cidade;
     private Usuario usuario;
-    private List<EventoTransporte> transportes;
+    private Set<EventoTransporte> eventoTransportes;
+
+    public Evento() {
+    }
+
+    public Evento(Long id, String nome, String descricao, String link, String foto, String tipo, Date data, Endereco endereco, Cidade cidade, Set<EventoTransporte> eventoTransportes) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.link = link;
+        this.foto = foto;
+        this.tipo = tipo;
+        this.data = data;
+        this.endereco = endereco;
+        this.cidade = cidade;
+        this.eventoTransportes = eventoTransportes;
+    }
 
     public Long getId() {
         return id;
@@ -92,11 +109,11 @@ public class Evento {
         this.usuario = usuario;
     }
 
-    public List<EventoTransporte> getTransportes() {
-        return transportes;
+    public Set<EventoTransporte> getTransportes() {
+        return eventoTransportes;
     }
 
-    public void setTransportes(List<EventoTransporte> transportes) {
-        this.transportes = transportes;
+    public void setTransportes(Set<EventoTransporte> transportes) {
+        this.eventoTransportes = transportes;
     }
 }

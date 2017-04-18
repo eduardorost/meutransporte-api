@@ -6,9 +6,18 @@ public class EventoTransporte {
     private Long id;
 
     private Empresa empresa;
+    private Evento evento;
     private Veiculo veiculo;
     private boolean vinculoUsuarioLogado;
     private List<Pessoa> pessoas;
+
+    public EventoTransporte() {
+    }
+
+    public EventoTransporte(Long id, Evento evento) {
+        this.id = id;
+        this.evento = evento;
+    }
 
     public Long getId() {
         return id;
@@ -48,5 +57,13 @@ public class EventoTransporte {
 
     public void setVinculoUsuarioLogado(boolean vinculoUsuarioLogado) {
         this.vinculoUsuarioLogado = vinculoUsuarioLogado;
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
 }

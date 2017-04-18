@@ -1,9 +1,8 @@
 package br.com.meutransporte.entities;
 
-import br.com.meutransporte.models.EventoTransporte;
-
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "pessoa")
 public class PessoaEntity {
@@ -24,7 +23,7 @@ public class PessoaEntity {
     private UsuarioEntity usuario;
 
     @ManyToMany(mappedBy = "pessoas")
-    private List<EventoTransporteEntity> eventoTransporte;
+    private Set<EventoTransporteEntity> eventoTransportes = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -74,11 +73,11 @@ public class PessoaEntity {
         this.email = email;
     }
 
-    public List<EventoTransporteEntity> getEventoTransporte() {
-        return eventoTransporte;
+    public Set<EventoTransporteEntity> getEventoTransportes() {
+        return eventoTransportes;
     }
 
-    public void setEventoTransporte(List<EventoTransporteEntity> eventoTransporte) {
-        this.eventoTransporte = eventoTransporte;
+    public void setEventoTransportes(Set<EventoTransporteEntity> eventoTransportes) {
+        this.eventoTransportes = eventoTransportes;
     }
 }

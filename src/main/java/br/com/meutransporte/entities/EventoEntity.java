@@ -3,6 +3,7 @@ package br.com.meutransporte.entities;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "evento")
 public class EventoEntity {
@@ -26,7 +27,7 @@ public class EventoEntity {
     private UsuarioEntity usuario;
 
     @OneToMany(mappedBy = "evento")
-    private List<EventoTransporteEntity> eventoTransportes;
+    private Set<EventoTransporteEntity> eventoTransportes;
 
     public Long getId() {
         return id;
@@ -108,11 +109,11 @@ public class EventoEntity {
         this.usuario = usuario;
     }
 
-    public List<EventoTransporteEntity> getEventoTransportes() {
+    public Set<EventoTransporteEntity> getEventoTransportes() {
         return eventoTransportes;
     }
 
-    public void setEventoTransportes(List<EventoTransporteEntity> eventoTransportes) {
+    public void setEventoTransportes(Set<EventoTransporteEntity> eventoTransportes) {
         this.eventoTransportes = eventoTransportes;
     }
 }
