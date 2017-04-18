@@ -3,6 +3,7 @@ package br.com.meutransporte.controllers;
 import br.com.meutransporte.models.Evento;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.services.EventoService;
+import br.com.meutransporte.services.EventoTransporteService;
 import br.com.meutransporte.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +60,12 @@ public class UsuarioController {
     @ResponseBody
     public ResponseEntity<List<Evento>> getEventosByUsuarioId(@PathVariable Long id) {
         return ResponseEntity.ok(eventoService.getAllByUsuarioId(id));
+    }
+
+    @RequestMapping(path = "/{id}/transportes/eventos", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<Evento>> getEventosWithTransporteByUsuarioId(@PathVariable Long id) {
+        return ResponseEntity.ok(eventoService.getAllByUsuarioIdWithTransporte(id));
     }
 
 }

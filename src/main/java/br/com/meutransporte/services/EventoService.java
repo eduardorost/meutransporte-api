@@ -1,8 +1,6 @@
 package br.com.meutransporte.services;
 
-import br.com.meutransporte.entities.CidadeEntity;
-import br.com.meutransporte.entities.EnderecoEntity;
-import br.com.meutransporte.entities.EventoEntity;
+import br.com.meutransporte.entities.*;
 import br.com.meutransporte.models.Evento;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.repositories.*;
@@ -12,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventoService {
@@ -28,6 +28,8 @@ public class EventoService {
     private EstadoRepository estadoRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private EventoTransporteService eventoTransporteService;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -83,6 +85,34 @@ public class EventoService {
 
     public List<Evento> getAllByUsuarioId(Long id) {
         Type listType = new TypeToken<List<Evento>>() { }.getType();
-        return modelMapper.map(eventoRepository.findByUsuarioId(id), listType);
+        List<Evento> eventos = modelMapper.map(eventoRepository.findByUsuarioId(id), listType);
+
+        UsuarioEntity usuarioEntity = usuarioRepository.findOne(id);
+        if(usuarioEntity.getPessoa() != null) {
+            eventos.forEach(evento ->
+                    evento.getTransportes().forEach(eventoTransporte -> eventoTransporte.setVinculoUsuarioLogado(eventoTransporteService.userRegisteredEvento(eventoTransporte, usuarioEntity.getPessoa().getId())))
+            );
+        }
+
+        return eventos;
+    }
+
+    public List<Evento> getAllByUsuarioIdWithTransporte(Long id) {
+        UsuarioEntity usuarioEntity = usuarioRepository.findOne(id);
+
+        Type listType = new TypeToken<List<Evento>>() { }.getType();
+
+        List<EventoTransporteEntity> eventoTransporteEntities;
+        if(usuarioEntity.getPessoa() != null) eventoTransporteEntities = usuarioEntity.getPessoa().getEventoTransporte();
+        else eventoTransporteEntities = usuarioEntity.getEmpresa().getEventoTransportes();
+
+        List<Evento> eventos = modelMapper.map(eventoTransporteEntities.stream().map(EventoTransporteEntity::getEvento).collect(Collectors.toList()), listType);
+        if(usuarioEntity.getPessoa() != null) {
+            eventos.forEach(evento ->
+                    evento.getTransportes().forEach(eventoTransporte -> eventoTransporte.setVinculoUsuarioLogado(eventoTransporteService.userRegisteredEvento(eventoTransporte, usuarioEntity.getPessoa().getId())))
+            );
+        }
+
+        return eventos;
     }
 }

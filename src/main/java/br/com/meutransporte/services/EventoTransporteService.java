@@ -28,6 +28,10 @@ public class EventoTransporteService {
         return eventoTransporte.getPessoas().stream().anyMatch(pessoaEntity -> Objects.equals(pessoaEntity.getId(), usuario.getPessoa().getId()));
     }
 
+    public boolean userRegisteredEvento(EventoTransporte eventoTransporte, Long idPessoa) {
+        return eventoTransporte.getPessoas().stream().anyMatch(pessoaEntity -> Objects.equals(pessoaEntity.getId(), idPessoa));
+    }
+
     private boolean userRegisteredEventoEntity(EventoTransporteEntity eventoTransporteEntity, Usuario usuario) {
         return eventoTransporteEntity.getPessoas().stream().anyMatch(pessoaEntity -> Objects.equals(pessoaEntity.getId(), usuario.getPessoa().getId()));
     }
