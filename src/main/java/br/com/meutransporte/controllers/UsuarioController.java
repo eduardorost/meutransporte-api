@@ -1,6 +1,8 @@
 package br.com.meutransporte.controllers;
 
+import br.com.meutransporte.models.Evento;
 import br.com.meutransporte.models.Usuario;
+import br.com.meutransporte.services.EventoService;
 import br.com.meutransporte.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private EventoService eventoService;
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -49,6 +53,12 @@ public class UsuarioController {
         usuarioService.delete(id);
 
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(path = "/{id}/eventos", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<Evento>> getEventosByUsuarioId(@PathVariable Long id) {
+        return ResponseEntity.ok(eventoService.getAllByUsuarioId(id));
     }
 
 }

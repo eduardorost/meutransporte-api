@@ -32,8 +32,7 @@ public class EventoService {
     private ModelMapper modelMapper;
 
     public List<Evento> getAll() {
-        Type listType = new TypeToken<List<Evento>>() {
-        }.getType();
+        Type listType = new TypeToken<List<Evento>>() { }.getType();
         return modelMapper.map(eventoRepository.findAll(), listType);
     }
 
@@ -80,5 +79,10 @@ public class EventoService {
             throw new IllegalArgumentException();
 
         eventoRepository.delete(eventoEntity);
+    }
+
+    public List<Evento> getAllByUsuarioId(Long id) {
+        Type listType = new TypeToken<List<Evento>>() { }.getType();
+        return modelMapper.map(eventoRepository.findByUsuarioId(id), listType);
     }
 }
