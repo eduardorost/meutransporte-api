@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +34,8 @@ public class EventoService {
 
     public List<Evento> getAll() {
         Type listType = new TypeToken<List<Evento>>() { }.getType();
-        return modelMapper.map(eventoRepository.findAll(), listType);
+        List<Evento> eventos = modelMapper.map(eventoRepository.findAll(), listType);
+        return eventos.stream().filter(evento -> evento.getData().after(getYesterday())).collect(Collectors.toList());
     }
 
     public Evento getById(Long id) {
@@ -85,7 +85,7 @@ public class EventoService {
 
     public List<Evento> getAllByUsuarioId(Long id) {
         Type listType = new TypeToken<List<Evento>>() { }.getType();
-        List<Evento> eventos = modelMapper.map(eventoRepository.findByUsuarioId(id), listType);
+        List<Evento> eventos = modelMapper.map(eventoRepository.findByUsuarioId(id).stream().filter(eventoEntity -> eventoEntity.getData().after(getYesterday())).collect(Collectors.toList()), listType);
 
         UsuarioEntity usuarioEntity = usuarioRepository.findOne(id);
         if(usuarioEntity.getPessoa() != null) {
@@ -106,7 +106,7 @@ public class EventoService {
         if(usuarioEntity.getPessoa() != null) eventoTransporteEntities = usuarioEntity.getPessoa().getEventoTransporte();
         else eventoTransporteEntities = usuarioEntity.getEmpresa().getEventoTransportes();
 
-        List<Evento> eventos = modelMapper.map(eventoTransporteEntities.stream().map(EventoTransporteEntity::getEvento).distinct().collect(Collectors.toList()), listType);
+        List<Evento> eventos = modelMapper.map(eventoTransporteEntities.stream().map(EventoTransporteEntity::getEvento).filter(eventoEntity -> eventoEntity.getData().after(getYesterday())).distinct().collect(Collectors.toList()), listType);
         if(usuarioEntity.getPessoa() != null) {
             eventos.forEach(evento ->
                     evento.getTransportes().forEach(eventoTransporte -> eventoTransporte.setVinculoUsuarioLogado(eventoTransporteService.userRegisteredEvento(eventoTransporte, usuarioEntity.getPessoa().getId())))
@@ -114,5 +114,11 @@ public class EventoService {
         }
 
         return eventos;
+    }
+
+    private Date getYesterday() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime();
     }
 }
