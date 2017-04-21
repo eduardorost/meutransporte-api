@@ -9,6 +9,7 @@ public class Empresa {
     private String telefone;
     private String email;
     private String recefitur;
+    private boolean aprovada;
     private List<Veiculo> veiculos;
 
     public Long getId() {
@@ -65,5 +66,13 @@ public class Empresa {
 
     public void setRecefitur(String recefitur) {
         this.recefitur = recefitur;
+    }
+
+    public boolean isAprovada() {
+        return aprovada;
+    }
+
+    public void setAprovada(boolean aprovada) {
+        this.aprovada = aprovada;
     }
 }

@@ -5,6 +5,7 @@ import br.com.meutransporte.entities.UsuarioEntity;
 import br.com.meutransporte.entities.VeiculoEntity;
 import br.com.meutransporte.models.Empresa;
 import br.com.meutransporte.repositories.EmpresaRepository;
+import br.com.meutransporte.repositories.UsuarioRepository;
 import br.com.meutransporte.repositories.VeiculoRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -19,6 +20,8 @@ public class EmpresaService {
 
     @Autowired
     private EmpresaRepository empresaRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
     @Autowired
     private VeiculoRepository veiculoRepository;
     @Autowired
@@ -66,6 +69,18 @@ public class EmpresaService {
         if (empresaEntity == null)
             throw new IllegalArgumentException();
 
-        empresaRepository.delete(empresaEntity);
+        usuarioRepository.delete(empresaEntity.getUsuario());
+    }
+
+    public Empresa aprovar(Long id) {
+        EmpresaEntity empresaEntity = empresaRepository.findOne(id);
+        empresaEntity.setAprovada(true);
+
+        return modelMapper.map(empresaRepository.save(empresaEntity), Empresa.class);
+    }
+
+    public List<Empresa> getAllAprovar() {
+        Type listType = new TypeToken<List<Empresa>>() { }.getType();
+        return modelMapper.map(empresaRepository.findByAprovada(false), listType);
     }
 }

@@ -34,6 +34,18 @@ public class EmpresaController {
         return ResponseEntity.ok(empresaService.getAll());
     }
 
+    @RequestMapping(path = "/aprovar", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<Empresa>> getAllAprovar() {
+        return ResponseEntity.ok(empresaService.getAllAprovar());
+    }
+
+    @RequestMapping(path = "/{id}/aprovar", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Empresa> aprovar(@PathVariable Long id) {
+        return ResponseEntity.ok(empresaService.aprovar(id));
+    }
+
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Empresa> getById(@PathVariable Long id) {

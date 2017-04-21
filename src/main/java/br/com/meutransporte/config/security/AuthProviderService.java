@@ -34,12 +34,13 @@ public class AuthProviderService implements AuthenticationProvider {
             throw new UsernameNotFoundException("Login e/ou Senha inválidos.");
 
         UsuarioEntity usuarioEntity = usuarioOptional.get();
-        if (usuarioEntity.getStatus()) {
-            Collection<? extends GrantedAuthority> authorities = usuarioEntity.getPapeis();
-            return new  UsernamePasswordAuthenticationToken(new ModelMapper().map(usuarioEntity, Usuario.class), senha, authorities);
-        } else {
+        if (!usuarioEntity.getStatus())
             throw new BadCredentialsException("Usuário desativado.");
-        }
+        if (usuarioEntity.getEmpresa() != null && !usuarioEntity.getEmpresa().isAprovada())
+            throw new BadCredentialsException("Seu cadastro ainda não foi aprovado.");
+
+        Collection<? extends GrantedAuthority> authorities = usuarioEntity.getPapeis();
+        return new UsernamePasswordAuthenticationToken(new ModelMapper().map(usuarioEntity, Usuario.class), senha, authorities);
     }
 
     @Override

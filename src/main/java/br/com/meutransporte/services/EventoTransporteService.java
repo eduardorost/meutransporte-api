@@ -25,6 +25,9 @@ public class EventoTransporteService {
     private ModelMapper modelMapper;
 
     public boolean userRegisteredEvento(EventoTransporte eventoTransporte, Usuario usuario) {
+        if(usuario.getPessoa() == null)
+            return false;
+
         return eventoTransporte.getPessoas().stream().anyMatch(pessoaEntity -> Objects.equals(pessoaEntity.getId(), usuario.getPessoa().getId()));
     }
 

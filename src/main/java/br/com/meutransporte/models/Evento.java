@@ -1,5 +1,6 @@
 package br.com.meutransporte.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Evento {
     private Endereco endereco;
     private Cidade cidade;
     private Usuario usuario;
-    private List<EventoTransporte> transportes;
+    private List<EventoTransporte> transportes = new ArrayList<>();
 
     public Long getId() {
         return id;

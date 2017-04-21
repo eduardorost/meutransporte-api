@@ -19,6 +19,8 @@ public class EmpresaEntity {
 
     private String recefitur;
 
+    private boolean aprovada;
+
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
@@ -99,5 +101,13 @@ public class EmpresaEntity {
 
     public void setEventoTransportes(List<EventoTransporteEntity> eventoTransportes) {
         this.eventoTransportes = eventoTransportes;
+    }
+
+    public boolean isAprovada() {
+        return aprovada;
+    }
+
+    public void setAprovada(boolean aprovada) {
+        this.aprovada = aprovada;
     }
 }

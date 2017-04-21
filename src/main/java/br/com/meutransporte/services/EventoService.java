@@ -106,7 +106,7 @@ public class EventoService {
         if(usuarioEntity.getPessoa() != null) eventoTransporteEntities = usuarioEntity.getPessoa().getEventoTransporte();
         else eventoTransporteEntities = usuarioEntity.getEmpresa().getEventoTransportes();
 
-        List<Evento> eventos = modelMapper.map(eventoTransporteEntities.stream().map(EventoTransporteEntity::getEvento).collect(Collectors.toList()), listType);
+        List<Evento> eventos = modelMapper.map(eventoTransporteEntities.stream().map(EventoTransporteEntity::getEvento).distinct().collect(Collectors.toList()), listType);
         if(usuarioEntity.getPessoa() != null) {
             eventos.forEach(evento ->
                     evento.getTransportes().forEach(eventoTransporte -> eventoTransporte.setVinculoUsuarioLogado(eventoTransporteService.userRegisteredEvento(eventoTransporte, usuarioEntity.getPessoa().getId())))
