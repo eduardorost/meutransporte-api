@@ -54,24 +54,19 @@ public class ListaPessoaTemplateService {
     }
 
     private String buildLinhaPassageiro(int i, int maxTable, List<PessoaEntity> pessoas) {
-        try {
             return "<tr style=\"height: 28px\">" +
                         buildLinhaPassageiroDados(i, pessoas) +
                         "<td></td>" +
                         buildLinhaPassageiroDados(i + maxTable, pessoas) +
                     "</tr>";
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "";
-        }
     }
 
-    private String buildLinhaPassageiroDados(int idx, List<PessoaEntity> pessoasEntitities) throws ParseException {
+    private String buildLinhaPassageiroDados(int idx, List<PessoaEntity> pessoasEntitities) {
         try {
             return "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;border-left: 1px solid black;\">" + idx+1 + "</td>" +
                     "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;\">" + pessoasEntitities.get(idx).getNome() + "</td>" +
                     "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;\">" + formatString(String.valueOf(pessoasEntitities.get(idx).getCpf()), MASK_CPF) + "</td>";
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (Exception ex) {
             return buildEmptyPassageiro(idx);
         }
     }
