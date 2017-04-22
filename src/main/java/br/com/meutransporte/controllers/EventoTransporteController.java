@@ -49,8 +49,8 @@ public class EventoTransporteController {
     @RequestMapping(path = "/transportes/{transporteId}", method = RequestMethod.GET)
     @ResponseBody
     @Secured("ROLE_EMPRESA")
-    public ResponseEntity<String> listaPassageiros(@PathVariable Long transporteId) throws Exception {
-        return ResponseEntity.ok(listaPessoaTemplateService.getListaPessoaMETROPLANTemplate(transporteId));
+    public ResponseEntity<String> listaPassageiros(@PathVariable Long transporteId, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) throws Exception {
+        return ResponseEntity.ok(listaPessoaTemplateService.getListaPessoaMETROPLANTemplate(transporteId, (Usuario) user.getPrincipal()));
     }
 
     @RequestMapping(path = "/transportes/{transporteid}/vincular/pessoa", method = RequestMethod.POST)

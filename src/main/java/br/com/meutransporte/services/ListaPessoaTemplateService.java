@@ -4,6 +4,8 @@ import br.com.meutransporte.entities.EmpresaEntity;
 import br.com.meutransporte.entities.EventoTransporteEntity;
 import br.com.meutransporte.entities.PessoaEntity;
 import br.com.meutransporte.entities.UsuarioEntity;
+import br.com.meutransporte.exceptions.NaoAutorizadoException;
+import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.repositories.EventoTransporteRepository;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -35,8 +38,11 @@ public class ListaPessoaTemplateService {
     private static final String MASK_CPF = "###.###.###-##";
     private static final String MASK_CNPJ = "###.###.###/####-##";
 
-    public String getListaPessoaMETROPLANTemplate(Long eventoTransporteId) throws Exception {
+    public String getListaPessoaMETROPLANTemplate(Long eventoTransporteId, Usuario usuario) throws Exception {
         EventoTransporteEntity eventoTransporteEntity = eventoTransporteRepository.findOne(eventoTransporteId);
+
+        if(!Objects.equals(usuario.getEmpresa().getId(), eventoTransporteEntity.getEmpresa().getId()))
+            throw new NaoAutorizadoException();
 
         String template = getHtml(listaPessoaMETROPLANHtml)
                 .replace("{{passageiros}}", buildPassageiros(eventoTransporteEntity.getPessoas()))
