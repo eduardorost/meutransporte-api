@@ -3,6 +3,7 @@ package br.com.meutransporte.controllers;
 import br.com.meutransporte.models.EventoTransporte;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.services.EventoTransporteService;
+import br.com.meutransporte.services.ListaPessoaTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -17,6 +18,8 @@ public class EventoTransporteController {
 
     @Autowired
     private EventoTransporteService eventoTransporteService;
+    @Autowired
+    private ListaPessoaTemplateService listaPessoaTemplateService;
 
     @RequestMapping(path = "/{eventoId}/transportes", method = RequestMethod.POST)
     @ResponseBody
@@ -41,6 +44,13 @@ public class EventoTransporteController {
         eventoTransporteService.removeTransporte(transporteId);
 
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(path = "/transportes/{transporteId}", method = RequestMethod.GET)
+    @ResponseBody
+    @Secured("ROLE_EMPRESA")
+    public ResponseEntity<String> listaPassageiros(@PathVariable Long transporteId) throws Exception {
+        return ResponseEntity.ok(listaPessoaTemplateService.getListaPessoaMETROPLANTemplate(transporteId));
     }
 
     @RequestMapping(path = "/transportes/{transporteid}/vincular/pessoa", method = RequestMethod.POST)
