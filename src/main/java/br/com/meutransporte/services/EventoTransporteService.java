@@ -7,6 +7,7 @@ import br.com.meutransporte.models.EventoTransporte;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.repositories.EventoRepository;
 import br.com.meutransporte.repositories.EventoTransporteRepository;
+import br.com.meutransporte.repositories.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,12 @@ public class EventoTransporteService {
     @Autowired
     private EventoRepository eventoRepository;
     @Autowired
+    private UsuarioRepository usuarioRepository;
+    @Autowired
     private ModelMapper modelMapper;
 
     public boolean userRegisteredEvento(EventoTransporte eventoTransporte, Usuario usuario) {
-        if(usuario.getPessoa() == null)
+        if (usuario.getPessoa() == null)
             return false;
 
         return eventoTransporte.getPessoas().stream().anyMatch(pessoaEntity -> Objects.equals(pessoaEntity.getId(), usuario.getPessoa().getId()));
@@ -68,5 +71,19 @@ public class EventoTransporteService {
         eventoTransporteEntity.setEvento(eventoRepository.findOne(eventoId));
 
         return modelMapper.map(eventoTransporteRepository.save(eventoTransporteEntity), EventoTransporte.class);
+    }
+
+    public void removeUsuario(Long eventoId, Usuario usuario) {
+        eventoRepository.findOne(eventoId).getEventoTransportes().stream().forEach(eventoTransporteEntity -> {
+            Optional<PessoaEntity> entityOptional = eventoTransporteEntity.getPessoas().stream().filter(pessoaEntity -> pessoaEntity.getId() == usuario.getPessoa().getId()).findFirst();
+            entityOptional.ifPresent(pessoaEntity -> {
+                eventoTransporteEntity.getPessoas().remove(pessoaEntity);
+                eventoTransporteRepository.save(eventoTransporteEntity);
+            });
+        });
+    }
+
+    public void removeTransporte(Long transporteId) {
+        eventoTransporteRepository.delete(transporteId);
     }
 }

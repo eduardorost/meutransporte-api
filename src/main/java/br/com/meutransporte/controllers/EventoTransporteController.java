@@ -25,6 +25,24 @@ public class EventoTransporteController {
         return ResponseEntity.ok(eventoTransporteService.insert(eventoTransporte, eventoId, (Usuario) user.getPrincipal()));
     }
 
+    @RequestMapping(path = "/{eventoId}/transportes", method = RequestMethod.DELETE)
+    @ResponseBody
+    @Secured("ROLE_USUARIO")
+    public ResponseEntity removeUsuario(@PathVariable Long eventoId, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {
+        eventoTransporteService.removeUsuario(eventoId, (Usuario) user.getPrincipal());
+
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(path = "/transportes/{transporteId}", method = RequestMethod.DELETE)
+    @ResponseBody
+    @Secured("ROLE_EMPRESA")
+    public ResponseEntity removeTransporte(@PathVariable Long transporteId) {
+        eventoTransporteService.removeTransporte(transporteId);
+
+        return ResponseEntity.ok().build();
+    }
+
     @RequestMapping(path = "/transportes/{transporteid}/vincular/pessoa", method = RequestMethod.POST)
     @ResponseBody
     @Secured("ROLE_USUARIO")
