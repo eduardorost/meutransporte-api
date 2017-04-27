@@ -9,8 +9,8 @@ public class EnderecoEntity {
     @GeneratedValue
     private Long id;
 
-    private String logradouro;
-    private Integer numero, cep;
+    private String logradouro, cep;
+    private Integer numero;
 
     @OneToMany(mappedBy = "endereco")
     private Set<EventoEntity> eventos;
@@ -39,11 +39,11 @@ public class EnderecoEntity {
         this.numero = numero;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

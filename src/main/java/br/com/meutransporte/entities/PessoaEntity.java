@@ -11,7 +11,7 @@ public class PessoaEntity {
     @GeneratedValue
     private Long id;
 
-    private Long cpf;
+    private String cpf;
 
     private String nome;
 
@@ -34,11 +34,11 @@ public class PessoaEntity {
         this.id = id;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

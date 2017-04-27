@@ -2,8 +2,8 @@ package br.com.meutransporte.models;
 
 public class Endereco {
     private Long id;
-    private String logradouro;
-    private Integer numero, cep;
+    private String logradouro, cep;
+    private Integer numero;
 
     public Long getId() {
         return id;
@@ -29,11 +29,11 @@ public class Endereco {
         this.numero = numero;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 }

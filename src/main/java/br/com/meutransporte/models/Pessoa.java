@@ -2,7 +2,7 @@ package br.com.meutransporte.models;
 
 public class Pessoa {
     private Long id;
-    private Long cpf;
+    private String cpf;
     private String nome;
     private String telefone;
     private String email;
@@ -15,11 +15,11 @@ public class Pessoa {
         this.id = id;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

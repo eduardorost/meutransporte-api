@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Empresa {
     private Long id;
-    private Long cnpj;
+    private String cnpj;
     private String nome;
     private String telefone;
     private String email;
@@ -20,11 +20,11 @@ public class Empresa {
         this.id = id;
     }
 
-    public Long getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(Long cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
