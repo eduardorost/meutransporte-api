@@ -10,7 +10,11 @@ public class EventoEntity {
     @GeneratedValue
     private Long id;
 
-    private String nome, descricao, link, foto, tipo;
+    private String nome, descricao, link, tipo;
+
+    @Column(columnDefinition = "TEXT")
+    private String foto;
+
     private Date data;
 
     @ManyToOne(cascade = CascadeType.ALL)
