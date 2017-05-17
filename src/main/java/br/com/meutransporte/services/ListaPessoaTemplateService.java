@@ -55,15 +55,13 @@ public class ListaPessoaTemplateService {
     private String buildPassageiros(List<PessoaEntity> pessoas) throws ParseException {
         int maxTable = 26;
         return IntStream.rangeClosed(0, maxTable)
-                .mapToObj(operand -> buildLinhaPassageiro(operand, maxTable, pessoas))
+                .mapToObj(operand -> buildLinhaPassageiro(operand, pessoas))
                 .collect(Collectors.joining());
     }
 
-    private String buildLinhaPassageiro(int i, int maxTable, List<PessoaEntity> pessoas) {
+    private String buildLinhaPassageiro(int i, List<PessoaEntity> pessoas) {
             return "<tr style=\"height: 28px\">" +
                         buildLinhaPassageiroDados(i, pessoas) +
-                        "<td></td>" +
-                        buildLinhaPassageiroDados(i + maxTable, pessoas) +
                     "</tr>";
     }
 
