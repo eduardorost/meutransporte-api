@@ -28,7 +28,7 @@ public class ListaPessoaTemplateService {
     @Autowired
     private EventoTransporteRepository eventoTransporteRepository;
     @Autowired
-    private PdfService pdfService;
+    private EmailService emailService;
 
     @Value("classpath:templates/lista-pessoa-DAER.html")
     private Resource listaPessoaDAERHtml;
@@ -49,7 +49,9 @@ public class ListaPessoaTemplateService {
                 .replace("{{contratada}}", buildContratada(eventoTransporteEntity.getEmpresa()))
                 .replace("{{contratante}}", buildContratante(eventoTransporteEntity.getEvento().getUsuario()));
 
-        return pdfService.generate(template);
+        emailService.sendEmail(usuario.getEmpresa().getEmail(), "LISTA EVENTO - "+eventoTransporteEntity.getEvento().getNome(), template);
+
+        return template;
     }
 
     private String buildPassageiros(List<PessoaEntity> pessoas) throws ParseException {
