@@ -67,7 +67,7 @@ public class ListaPessoaTemplateService {
 
     private String buildLinhaPassageiroDados(int idx, List<PessoaEntity> pessoasEntitities) {
         try {
-            return "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;border-left: 1px solid black;\">" + idx+1 + "</td>" +
+            return "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;border-left: 1px solid black;\">" + (idx+1) + "</td>" +
                     "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;\">" + pessoasEntitities.get(idx).getNome() + " - " + pessoasEntitities.get(idx).getTelefone() + "</td>" +
                     "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;\">" + pessoasEntitities.get(idx).getCpf() + "</td>";
         } catch (Exception ex) {
