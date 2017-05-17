@@ -92,7 +92,7 @@ public class ListaPessoaTemplateService {
     private String buildContratada(EmpresaEntity empresaEntity) throws ParseException {
         return empresaEntity.getNome() + " - " + empresaEntity.getCnpj();
     }
-    
+
     private String getHtml(Resource resource) {
         try (InputStream is = resource.getInputStream()) {
             return IOUtils.toString(is);
