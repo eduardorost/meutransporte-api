@@ -18,11 +18,8 @@ public class EmailService {
     private JavaMailSender mailSender;
     @Value("${spring.mail.username}")
     private String from;
-    @Value("${spring.mail.password}")
-    private String pass;
 
     public void sendEmail(String to, String subject, String html) throws Exception {
-        log.info("USUARIO: "+ from +" SENHA: "+ pass);
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage) {{
                 setFrom(from);
