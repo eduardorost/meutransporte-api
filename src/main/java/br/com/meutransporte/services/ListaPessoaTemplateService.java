@@ -35,9 +35,6 @@ public class ListaPessoaTemplateService {
     @Value("classpath:templates/lista-pessoa-METROPLAN.html")
     private Resource listaPessoaMETROPLANHtml;
 
-    private static final String MASK_CPF = "###.###.###-##";
-    private static final String MASK_CNPJ = "###.###.###/####-##";
-
     public String getListaPessoaMETROPLANTemplate(Long eventoTransporteId, Usuario usuario) throws Exception {
         EventoTransporteEntity eventoTransporteEntity = eventoTransporteRepository.findOne(eventoTransporteId);
 
@@ -72,8 +69,8 @@ public class ListaPessoaTemplateService {
     private String buildLinhaPassageiroDados(int idx, List<PessoaEntity> pessoasEntitities) {
         try {
             return "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;border-left: 1px solid black;\">" + idx+1 + "</td>" +
-                    "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;\">" + pessoasEntitities.get(idx).getNome() + "</td>" +
-                    "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;\">" + formatString(String.valueOf(pessoasEntitities.get(idx).getCpf()), MASK_CPF) + "</td>";
+                    "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;\">" + pessoasEntitities.get(idx).getNome() + " - " + pessoasEntitities.get(idx).getTelefone() + "</td>" +
+                    "<td style=\"border-bottom: 1px solid black; border-right: 1px solid black;\">" + pessoasEntitities.get(idx).getCpf() + "</td>";
         } catch (Exception ex) {
             return buildEmptyPassageiro(idx);
         }
@@ -89,20 +86,13 @@ public class ListaPessoaTemplateService {
         if(usuarioEntity.getEmpresa() != null)
             return buildContratada(usuarioEntity.getEmpresa());
 
-        return usuarioEntity.getPessoa().getNome() + " - " + formatString(String.valueOf(usuarioEntity.getPessoa().getCpf()), MASK_CPF);
+        return usuarioEntity.getPessoa().getNome() + " - " + usuarioEntity.getPessoa().getTelefone() + " - " + usuarioEntity.getPessoa().getCpf();
     }
 
     private String buildContratada(EmpresaEntity empresaEntity) throws ParseException {
-        return empresaEntity.getNome() + " - " + formatString(String.valueOf(empresaEntity.getCnpj()), MASK_CNPJ);
+        return empresaEntity.getNome() + " - " + empresaEntity.getCnpj();
     }
-
-    private String formatString(String text, String mask) throws ParseException {
-        return new MaskFormatter(mask) {{
-            setValueContainsLiteralCharacters(false);
-            setPlaceholder("");
-        }}.valueToString(text);
-    }
-
+    
     private String getHtml(Resource resource) {
         try (InputStream is = resource.getInputStream()) {
             return IOUtils.toString(is);
