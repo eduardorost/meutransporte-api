@@ -1,6 +1,7 @@
 package br.com.meutransporte.controllers;
 
 import br.com.meutransporte.models.EventoTransporte;
+import br.com.meutransporte.models.HtmlTemplate;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.services.EventoTransporteService;
 import br.com.meutransporte.services.ListaPessoaTemplateService;
@@ -49,7 +50,7 @@ public class EventoTransporteController {
     @RequestMapping(path = "/transportes/{transporteId}", method = RequestMethod.GET)
     @ResponseBody
     @Secured("ROLE_EMPRESA")
-    public ResponseEntity<String> listaPassageiros(@PathVariable Long transporteId, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) throws Exception {
+    public ResponseEntity<HtmlTemplate> listaPassageiros(@PathVariable Long transporteId, @AuthenticationPrincipal UsernamePasswordAuthenticationToken user) throws Exception {
         return ResponseEntity.ok(listaPessoaTemplateService.getListaPessoaMETROPLANTemplate(transporteId, (Usuario) user.getPrincipal()));
     }
 

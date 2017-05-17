@@ -5,6 +5,7 @@ import br.com.meutransporte.entities.EventoTransporteEntity;
 import br.com.meutransporte.entities.PessoaEntity;
 import br.com.meutransporte.entities.UsuarioEntity;
 import br.com.meutransporte.exceptions.NaoAutorizadoException;
+import br.com.meutransporte.models.HtmlTemplate;
 import br.com.meutransporte.models.Usuario;
 import br.com.meutransporte.repositories.EventoTransporteRepository;
 import org.apache.commons.io.IOUtils;
@@ -35,7 +36,7 @@ public class ListaPessoaTemplateService {
     @Value("classpath:templates/lista-pessoa-METROPLAN.html")
     private Resource listaPessoaMETROPLANHtml;
 
-    public String getListaPessoaMETROPLANTemplate(Long eventoTransporteId, Usuario usuario) throws Exception {
+    public HtmlTemplate getListaPessoaMETROPLANTemplate(Long eventoTransporteId, Usuario usuario) throws Exception {
         EventoTransporteEntity eventoTransporteEntity = eventoTransporteRepository.findOne(eventoTransporteId);
 
         if(!Objects.equals(usuario.getEmpresa().getId(), eventoTransporteEntity.getEmpresa().getId()))
@@ -48,7 +49,7 @@ public class ListaPessoaTemplateService {
 
         emailService.sendEmail(usuario.getEmpresa().getEmail(), "LISTA EVENTO - "+eventoTransporteEntity.getEvento().getNome(), template);
 
-        return template;
+        return new HtmlTemplate(template);
     }
 
     private String buildPassageiros(List<PessoaEntity> pessoas) throws ParseException {
